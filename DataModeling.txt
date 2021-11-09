@@ -1,0 +1,157 @@
+﻿Features
+* users can sign into the app with their email and password
+* users can create recipes with ingredients and instructions
+* recipes can be marked as public or private
+* users can view other people’s recipes
+* ingredients from recipes can be added to user’s grocery lists
+* users can create their own occasions and assign recipes to occasions
+
+
+Brainstorming:
+Users 
+	recipes
+	ingredients
+	Id primary key
+	Ingredients ids
+	Id primary keys
+	name
+	instructions
+	names
+	email
+	Primary key
+	
+
+	password
+	User primary key
+	
+
+	Number of recipes
+	Recipe id prime key
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+
+
+public
+	private
+	Shopping list
+	Recipe primary key
+	Recipe primary key
+	Recipe id 
+	User primary key
+	User primary key
+	
+
+	
+
+
+
+
+
+users-recipes
+	recipes-ingredients
+	
+
+	User id 
+	Recipe id
+	
+
+	Recipe primary key
+	Ingredient id
+	
+
+	
+
+
+
+
+
+
+
+Relationships-
+
+
+Users to recipes = one to many. One user can create many recipes but each recipe can have only one creator.
+
+
+Recipes to ingredients = many to many. An ingredient can be included in any number of recipes and a recipe can include many ingredients.
+
+
+Recipe to shopping list = one to one. Each recipe has a unique shopping list and each shopping list can create just one recipe.
+
+
+Recipes to public and private = one to many. One recipe can be only either public or private not both. But public and private can contain many recipes each.
+
+
+
+
+
+
+
+
+
+
+SQL Code:
+
+
+
+
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(20),
+    email VARCHAR(50),
+    password VARCHAR(50)
+);
+
+
+CREATE TABLE recipes (
+    user_id INTEGER REFERENCES users(user_id),
+    recipe_id SERIAL PRIMARY KEY,
+    recipe_name VARCHAR(50),
+    instructions VARCHAR(1000)
+);
+
+
+
+
+CREATE TABLE ingredients (
+    ingredients_id SERIAL PRIMARY KEY,
+    name_item VARCHAR(250)
+);
+
+
+CREATE TABLE recipies_ingredients (
+    recipes_ingredients_id SERIAL PRIMARY KEY,
+    recipe_id INTEGER REFERENCES recipes(recipe_id),
+    ingredients_id INTEGER REFERENCES ingredients(ingredients_id)
+);
+
+
+
+
+CREATE TABLE user_recipes (
+    user_recipes_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id),
+    recipe_id INTEGER REFERENCES recipes(recipe_id)
+);
+
+
+CREATE TABLE shopping_list (
+    shopping_list SERIAL PRIMARY KEY,
+    recipe_id INTEGER REFERENCES recipes(recipe_id)
+);
